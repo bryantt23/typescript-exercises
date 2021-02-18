@@ -43,3 +43,5 @@ catch (e) {
 // console.log(calculateBmi(40, 147))
 // console.log(calculateBmi(63, 147))
 // console.log(calculateBmi(65, 147))
+
+export default calculateBmi
