@@ -28,6 +28,7 @@ app.get('/bmi', (req: any, res: { send: (arg0: string) => void }) => {
     } catch (error) {
         console.log("error", error)
         console.log("error", JSON.stringify(error))
+        // https://stackoverflow.com/questions/57231495/nodejs-typescript-errorhandler-typing
         return res.send(JSON.stringify({ error: error.message }))
     }
 
