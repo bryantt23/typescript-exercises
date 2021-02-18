@@ -8,7 +8,36 @@ interface ExerciseReport {
     average: number
 }
 
-const calculateExercises = (actualTrainingHoursEachDay: Array<number>, target: number): ExerciseReport => {
+interface ExerciseValues {
+    actualTrainingHoursEachDay: Array<number>;
+    target: number;
+}
+
+const parseArguments = (args: Array<string>):
+    ExerciseValues => {
+    const n = args.length
+    return {
+        actualTrainingHoursEachDay: args.map(num => Number(num)).slice(3),
+        target: Number(args[2])
+    }
+
+    // if (args.length < 4) throw new Error("Not enough arguments")
+    // if (args.length > 4) throw new Error("Too many arguments")
+
+    // if (!isNaN(Number(args[2])) && !isNaN(Number(args[3]))) {
+    //     return {
+    //         value1: Number(args[2]),
+    //         value2: Number(args[3]),
+    //     }
+    // } else {
+    //     throw new Error("Provided values were not numbers!")
+    // }
+}
+
+
+const calculateExercises = (target: number, actualTrainingHoursEachDay: Array<number>): ExerciseReport => {
+    console.log("actualTrainingHoursEachDay:", actualTrainingHoursEachDay)
+    console.log("target:", target)
     const periodLength = actualTrainingHoursEachDay.length
     const trainingDays = actualTrainingHoursEachDay.filter(day => day > 0).length
     const actualTrainingHoursTotal = actualTrainingHoursEachDay.reduce((acc, cur,) => acc + cur, 0)
@@ -41,14 +70,24 @@ const calculateExercises = (actualTrainingHoursEachDay: Array<number>, target: n
     }
 }
 
+try {
+    const { actualTrainingHoursEachDay, target } =
+        parseArguments(process.argv)
+    console.log(calculateExercises(target, actualTrainingHoursEachDay))
+}
+catch (e) {
+    console.log('Error, something bad happened, message: ', e.message);
+}
+/*
 const targetTrainingHoursEachDay = [0, .5, 1.5, .5, 1.5, .5, 1.5]
 const targetDailyHours = 1
 
 let actualTrainingHoursEachDay = [0, 0, 1.5, .5, 1, .5, 1.5]
-console.log(calculateExercises(actualTrainingHoursEachDay, targetDailyHours))
+console.log(calculateExercises(targetDailyHours, actualTrainingHoursEachDay))
 
 actualTrainingHoursEachDay = [1, .5, 1.5, .5, 1.5, .5, 1.5]
-console.log(calculateExercises(actualTrainingHoursEachDay, targetDailyHours))
+console.log(calculateExercises(targetDailyHours, actualTrainingHoursEachDay))
 
 actualTrainingHoursEachDay = [1.5, 1, 1.5, 1, 1.5, 1, 1.5]
-console.log(calculateExercises(actualTrainingHoursEachDay, targetDailyHours))
+console.log(calculateExercises(targetDailyHours, actualTrainingHoursEachDay))
+*/
