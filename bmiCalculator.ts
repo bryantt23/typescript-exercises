@@ -15,5 +15,5 @@ const calculateBmi = (weight: number, height: number): string => {
 
 
 console.log(calculateBmi(40, 147))
-console.log(calculateBmi(54, 147))
+console.log(calculateBmi(63, 147))
 console.log(calculateBmi(65, 147))
