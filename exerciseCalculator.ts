@@ -92,3 +92,5 @@ console.log(calculateExercises(targetDailyHours, actualTrainingHoursEachDay))
 actualTrainingHoursEachDay = [1.5, 1, 1.5, 1, 1.5, 1, 1.5]
 console.log(calculateExercises(targetDailyHours, actualTrainingHoursEachDay))
 */
+
+export default calculateExercises

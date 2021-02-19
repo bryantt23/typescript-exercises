@@ -1,7 +1,11 @@
 import calculateBmi from "./bmiCalculator";
+import calculateExercises from "./exerciseCalculator";
+
 
 const express = require('express')
 const app = express()
+// https://stackoverflow.com/questions/9177049/express-js-req-body-undefined
+app.use(express.json());
 
 app.get('/hello', (_req: any, res: { send: (arg0: string) => void }) => {
     res.send('Hello full stack!')
@@ -33,6 +37,27 @@ app.get('/bmi', (req: any, res: { send: (arg0: string) => void }) => {
     }
 
 })
+
+app.post('/exercises', async (req: any, res: { send: (arg0: string) => void }) => {
+    try {
+        const { daily_exercises, target } = req.body
+        if (daily_exercises === undefined || target === undefined) {
+            throw new Error("parameters missing")
+        }
+        if (!Array.isArray(daily_exercises) || !isNumeric(target)) {
+            throw new Error("malformatted parameters")
+        }
+        const exerciseResult = calculateExercises(target, daily_exercises)
+        console.log(daily_exercises, target)
+        res.send(JSON.stringify(exerciseResult))
+
+    } catch (error) {
+        console.log("error", error)
+        console.log("error", JSON.stringify(error))
+        return res.send(JSON.stringify({ error: error.message }))
+    }
+})
+
 
 const PORT = 3002
 
